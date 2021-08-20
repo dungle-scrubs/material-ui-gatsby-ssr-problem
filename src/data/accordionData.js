@@ -314,43 +314,6 @@ export default {
             ],
           },
         },
-        {
-          question: 'How do I get my digital planner or product?',
-          answer: {
-            raw: [
-              {
-                type: 'paragraph',
-                text: 'You have 3 ways to download your digital products.',
-                spans: [],
-              },
-              {
-                type: 'o-list-item',
-                text: 'You will have a download link on the thank you page after you make the purchase.',
-                spans: [],
-              },
-              {
-                type: 'o-list-item',
-                text: 'After your purchase, you will be emailed a link with the digital product download(s)',
-                spans: [],
-              },
-              {
-                type: 'o-list-item',
-                text: 'You can visit this page to redownload your products',
-                spans: [
-                  {
-                    start: 8,
-                    end: 23,
-                    type: 'hyperlink',
-                    data: {
-                      link_type: 'Web',
-                      url: 'https://transactions.sendowl.com/order_recoveries/new?merchant_id=171854',
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-        },
       ],
     },
   ],
