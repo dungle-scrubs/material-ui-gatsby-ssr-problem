@@ -1,54 +1,37 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby minimal starter
-</h1>
+# Issue
 
-## 🚀 Quick start
+There seems to be an issue surrounding the use of `gatsby-plugin-material-ui` combined with Mui's accordion component.
 
-1.  **Create a Gatsby site.**
+The problem exists due to `browserlist` accessing the file system via `fs`, which Gatsby v3 doesn't like.
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+Therefore incremental builds are disabled.
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+Error:
 
-2.  **Start developing.**
+```
+warn Unsafe builtin method was used, future builds will need to rebuild all pages
+warn WebpackError: Unsafe builtin usage fs.existsSync:
+    at material-ui-gatsby-ssr-problem/node_modules/browserslist/node.js:38:1
+    at material-ui-gatsby-ssr-problem/node_modules/browserslist/node.js:202:1
+    at material-ui-gatsby-ssr-problem/node_modules/browserslist/node.js:49:1
+    at material-ui-gatsby-ssr-problem/node_modules/browserslist/node.js:200:1
+    at material-ui-gatsby-ssr-problem/node_modules/browserslist/index.js:433:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/browsers.js:54:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/browsers.js:42:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/supports.js:41:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/supports.js:86:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/supports.js:247:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/supports.js:245:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/supports.js:270:1
+    at material-ui-gatsby-ssr-problem/node_modules/autoprefixer/lib/processor.js:67:1
+    at material-ui-gatsby-ssr-problem/node_modules/postcss/lib/container.js:119:1
+    at material-ui-gatsby-ssr-problem/node_modules/postcss/lib/container.js:55:1
 
-    Navigate into your new site’s directory and start it up.
-
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
-
-3.  **Open the code and start customizing!**
-
-    Your site is now running at http://localhost:8000!
-
-    Edit `src/pages/index.js` to see your site update in real-time!
-
-4.  **Learn more**
-
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-
-## 🚀 Quick start (Gatsby Cloud)
-
-Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
-
-[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
+  36 |     return filenessCache[file]
+  37 |   }
+> 38 |   var result = fs.existsSync(file) && fs.statSync(file).isFile()
+     | ^
+  39 |   if (!process.env.BROWSERSLIST_DISABLE_CACHE) {
+  40 |     filenessCache[file] = result
+  41 |   }
+```
